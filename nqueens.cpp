@@ -26,7 +26,7 @@ void printNQueens(int N, int arr[]){
 bool nqueens(int N, int arr[], int level){
 	if(!promising(N, arr, level))
 		return false;
-	if(level+1 == N){
+	if(level == N){
 		printNQueens(N, arr);
 		return true;
 	}
