@@ -1,6 +1,10 @@
 #include  <iostream>
 #include  <vector>
 
+void merge_sort(int N, std::vector<int> arr){
+  
+}
+
 int main(){
   int N;
   std::vector<int> arr;
@@ -20,5 +24,6 @@ int main(){
     std::cout << *iter << " ";
   }
   std::cout << std::endl << std::endl;
+
   return 0;
 }
