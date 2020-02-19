@@ -6,7 +6,7 @@ void heapify(int arr[], int h, int N){
 	k = h*2;
 	if(k > N)
 		return;
-	if(k == N){	
+	if(k == N){
 		int t = arr[k];
 		arr[k] = arr[h];
 		arr[h] = t;
