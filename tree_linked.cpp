@@ -18,8 +18,16 @@ public:
 		return *left;
 	}
 
+	LinkedTree*& getLeftChildP(){
+		return left;
+	}
+
 	LinkedTree& getRightChild(){
 		return *right;
+	}
+
+	LinkedTree*& getRightChildP(){
+		return right;
 	}
 
 	LinkedTree& getParent(){
@@ -64,6 +72,42 @@ public:
 	LinkedTree& getHead(){
 		return *head;
 	}
+
+	LinkedTree*& getHeadP(){
+		return head;
+	}
+
+	void inorderTraversal(LinkedTree*& root){
+		if(!root)
+			return;
+
+		inorderTraversal(root->getLeftChildP());
+		std::cout << root->getData() << std::endl;
+		inorderTraversal(root->getRightChildP());
+	}
+
+	void preorderTraversal(LinkedTree*& root){
+		if(!root)
+			return;
+
+		std::cout << root->getData() << std::endl;
+		preorderTraversal(root->getLeftChildP());
+		preorderTraversal(root->getRightChildP());
+	
+	}
+
+	void postorderTraversal(LinkedTree*& root){
+		if(!root)
+			return;
+
+		postorderTraversal(root->getLeftChildP());
+		postorderTraversal(root->getRightChildP());
+		std::cout << root->getData() << std::endl;
+	}
+
+	void levelorderTraversal(){
+		
+	}
 };
 
 int main(){
@@ -75,6 +119,23 @@ int main(){
 	std::cout << root.getHead().getLeftChild().getData() << std::endl;
 	std::cout << root.getHead().getRightChild().getData() << std::endl;
 	std::cout << root.getHead().getRightChild(). getParent().getData() << std::endl;
+	std::cout << std::endl;
+
+	root.inorderTraversal(root.getHeadP());
+	std::cout << std::endl;
+
+	root.getHead().getLeftChild().addLeft(7);
+	root.getHead().getLeftChild().getLeftChild().addLeft(9);
+	root.getHead().getLeftChild().addRight(8);
+
+	root.inorderTraversal(root.getHeadP());
+	std::cout << std::endl;
+
+	root.preorderTraversal(root.getHeadP());
+	std::cout << std::endl;
+
+	root.postorderTraversal(root.getHeadP());
+	std::cout << std::endl;
 
 	return 0;
 }
