@@ -23,6 +23,10 @@ public:
 		return data;
 	}
 
+	void changeData(Node* n){
+		data = n->getData();
+	}
+
 	const Node* returnThis() const{
 		return this;
 	}
@@ -35,7 +39,7 @@ public:
 		return leftC;
 	}
 
-	Node* getParent() const{
+	Node*& getParent(){
 		return parent;
 	}
 
@@ -127,8 +131,31 @@ public:
 		return temp1;
 	}
 
-	void delete_node(){
+	void delete_node(Node* n){
+		Node* x;
+		Node* y;
+		if(!n->leftChildP() || !n->rightChildP())
+			y = n;
+		else
+			y = findSuccessor(n);
 
+		if(y->leftChildP())
+			x = y->leftChildP();
+		else
+			x = y->rightChildP();
+
+		if(x)
+			x->getParent() = y->getParent();
+
+		if(!y->getParent())
+			head = x;
+		else if(y == y->getParent()->leftChildP())
+			y->getParent()->makeLeftC(x);
+		else
+			y->getParent()->makeRightC(x);
+
+		if(y != n)
+			n->changeData(y);
 	}
 
 	void inorderTraversal(const Node* n){
@@ -215,5 +242,8 @@ int main(){
 
 	std::cout << bst.findPredecessor(bst.getHead())->getData() << std::endl;
 	std::cout << bst.findSuccessor(bst.getHead())->getData() << std::endl;
+
+	bst.delete_node(bst.getHead());
+	bst.inorderTraverse();
 	return 0;
 }
