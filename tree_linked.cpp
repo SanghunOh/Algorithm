@@ -1,4 +1,8 @@
 #include	<iostream>
+#include	<queue>
+
+int N;
+bool* visit;
 
 class LinkedTree{
 private:
@@ -41,28 +45,32 @@ public:
 	void addRight(int data){
 		right = new LinkedTree(data);
 		right->parent = this;
+		N++;
 	}
 
 	void addRight(LinkedTree t){
 		*right = t;
 		right->parent = this;
+		N++;
 	}
 
 	void addLeft(int data){
 		left = new LinkedTree(data);
 		left->parent = this;
+		N++;
 	}
 
 	void addLeft(LinkedTree t){
 		*left = t;
 		left->parent = this;
+		N++;
 	}
 };
 
 class Tree{
 private:
 	LinkedTree* head;
-
+	std::queue<LinkedTree*> q;
 public:
 	Tree(){
 		LinkedTree* n = new LinkedTree();
@@ -106,7 +114,12 @@ public:
 	}
 
 	void levelorderTraversal(){
-		
+		visit = new bool[N];
+		for(int i=0 ; i<N ; i++)
+			visit[i] = false;
+
+		visit[0] = true;
+		q.push(head);
 	}
 };
 
