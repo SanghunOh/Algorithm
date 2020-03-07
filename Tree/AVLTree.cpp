@@ -44,6 +44,14 @@ public:
 		left = n;
 	}
 
+	void makeParent(Node* n){
+		if(this->key > n->key)
+			n->right = this;
+		else
+			n->left = this;
+		this->parent = n;
+	}
+
 	~Node(){
 		if(left)
 			delete left;
@@ -173,7 +181,103 @@ public:
 };
 
 class AVLTree : public BSTree{
+public:
+	void insert(int data){
+		BSTree::insert(data);
+		rebalance(root);
+	}
 
+	void del(int data){
+		BSTree::del(data);
+		rebalance(root);
+	}
+
+	Node* rebalance(Node*& rt){
+		int hDiff = getHeightDiff(rt);
+
+		if(hDiff>1){
+			if(getHeightDiff(rt->getLeft()) > 0)
+				rotateLL(rt);
+			else
+				rotateLR(rt);
+		}
+
+		if(hDiff < -1){
+			if(getHeightDiff(rt->getRight()) < 0)
+				rotateRR(rt);
+			else
+				rotateRL(rt);
+		}
+
+		return rt;
+	}
+
+	int getHeight(Node* rt){
+		int leftH;
+		int rightH;
+
+		if(!rt)
+			return 0;
+
+		leftH = getHeight(rt->getLeft());
+		rightH = getHeight(rt->getRight());
+
+		return leftH > rightH ? leftH+1 : rightH+1;
+	}
+
+	int getHeightDiff(Node* rt){
+		int l;
+		int r;
+
+		if(!rt)
+			return 0;
+		l = getHeight(rt->getLeft());
+		r = getHeight(rt->getRight());
+
+		return l-r;
+	}
+
+	void rotateLL(Node* bst){
+		Node* par;
+		Node* child;
+
+		par = bst;
+		child = bst->getLeft();
+
+		child->makeParent(par->getParent());
+		par->makeParent(child);
+		par->makeLeft(child->getRight());
+		child->makeRight(par);
+	}
+
+	void rotateRR(Node* bst){
+		Node* par;
+		Node* child;
+
+		par = bst;
+		child = bst->getRight();
+
+		child->makeParent(par->getParent());
+		par->makeParent(child);
+		par->makeRight(child->getLeft());
+		child->makeLeft(par);
+	}
+
+	void rotateLR(Node* bst){
+		Node* par = bst;
+		Node* child = par->getLeft();
+
+		rotateRR(child);
+		rotateLL(par);
+	}
+
+	void rotateRL(Node* bst){
+		Node* par = bst;
+		Node* child = par->getRight();
+
+		rotateLL(child);
+		rotateRR(par);
+	}
 };
 
 int main(){
