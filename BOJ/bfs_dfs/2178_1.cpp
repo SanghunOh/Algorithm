@@ -67,18 +67,12 @@ int main(){
 		for(int j=0 ; j<M ; j++){
 			if(j != M-1){
 				if(_maze[i][j] == '1' && _maze[i][j+1] == '1'){
-					pos tmp1(i, j);
-					pos tmp2(i, j+1);
-	
 					maze[i][j].push_back(pos(i, j+1));
 					maze[i][j+1].push_back(pos(i, j));
 				}
 			}
 			if(i != N-1){
 				if(_maze[i][j] == '1' && _maze[i+1][j] == '1'){
-					pos tmp1(i, j);
-					pos tmp2(i+1, j);
-	
 					maze[i][j].push_back(pos(i+1, j));
 					maze[i+1][j].push_back(pos(i, j));
 				}
