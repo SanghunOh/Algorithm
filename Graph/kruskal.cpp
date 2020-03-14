@@ -29,21 +29,39 @@ void unionParent(int*& parent, int u, int v){
 	parent[x] = y;
 }
 
+void weightedUnion(int*& parent, int u, int v, int*& size){
+	int x = findSet(parent, u);
+	int y = findSet(parent, v);
+
+	if(size[x] > size[y]){
+		parent[y] = x;
+		size[x] += size[y];
+	}
+	else{
+		parent[x] = y;
+		size[y] += size[x];
+	}
+}
+
 int kruskal(std::vector<Edge> e, int N, int M){
 	int* parent;
+	int* size;
 	int sum =0;
 
 	parent = new int[N];
-	for(int i=0 ; i<N ; i++)
+	size = new int[N];
+	for(int i=0 ; i<N ; i++){
 		parent[i] = i;
+		size[i] = 1;
+	}
 
 	std::sort(e.begin(), e.end(), compare);
 	
 	for(int i=0 ; i<e.size() ; i++){
 		if(findSet(parent, e[i].u) != findSet(parent, e[i].v)){
 			sum += e[i].w;
-			std::cout << e[i].w << " ";
-			unionParent(parent, e[i].u, e[i].v);
+//			unionParent(parent, e[i].u, e[i].v);
+			weightedUnion(parent, e[i].u, e[i].v, size);
 		}
 	}
 	std::cout << std::endl;
