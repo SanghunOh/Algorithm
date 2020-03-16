@@ -60,6 +60,7 @@ int kruskal(std::vector<Edge> e, int N, int M){
 	for(int i=0 ; i<e.size() ; i++){
 		if(findSet(parent, e[i].u) != findSet(parent, e[i].v)){
 			sum += e[i].w;
+			//////////////방문
 //			unionParent(parent, e[i].u, e[i].v);
 			weightedUnion(parent, e[i].u, e[i].v, size);
 		}

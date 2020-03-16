@@ -60,7 +60,7 @@ int prim(Graph& mst, int s){
 	int* p;
 	int sum=0;
 
-	std::priority_queue<int> pq;
+	std::priority_queue<int, std::vector<int>, std::greater<int>> pq;
 	std::vector<edge>* g = mst.getGraph();
 
 	key = new int[N];
@@ -89,8 +89,12 @@ int prim(Graph& mst, int s){
 		}
 	}
 
-	for(int i=0 ; i<N ; i++)
+	for(int i=0 ; i<N ; i++){
 		sum += key[i];
+		std::cout << key[i] << " ";
+	}
+	std::cout << std::endl;
+//		sum += key[i];
 
 	return sum;
 }
