@@ -40,6 +40,11 @@ public:
 	std::vector<edge>*& getGraph(){
 		return g;
 	}
+
+	~Graph(){
+		for(int i=0 ; i<N ; i++)
+			std::vector<edge>().swap(g[i]);
+	}
 	
 	friend std::istream& operator>>(std::istream& is, Graph& g);
 };
@@ -53,6 +58,8 @@ int prim(Graph& mst, int s){
 	int N = mst.getN();
 	int* key;
 	int* p;
+	int sum=0;
+
 	std::priority_queue<int> pq;
 	std::vector<edge>* g = mst.getGraph();
 
@@ -82,7 +89,10 @@ int prim(Graph& mst, int s){
 		}
 	}
 
-	return 0;
+	for(int i=0 ; i<N ; i++)
+		sum += key[i];
+
+	return sum;
 }
 
 int main(){
