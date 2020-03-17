@@ -65,8 +65,6 @@ int kruskal(std::vector<Edge> e, int N, int M){
 			weightedUnion(parent, e[i].u, e[i].v, size);
 		}
 	}
-	std::cout << std::endl;
-	
 	return sum;
 }
 
