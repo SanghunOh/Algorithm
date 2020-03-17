@@ -56,25 +56,37 @@ std::istream& operator>>(std::istream& is, Graph& g){
 
 int prim(Graph& mst, int s){
 	int N = mst.getN();
-	int* key;
 	int* p;
 	int sum=0;
+	std::vector<bool> added(N, false);
+	std::vector<int> key(N, INF);
 
-	std::priority_queue<int, std::vector<int>, std::greater<int>> pq;
 	std::vector<edge>* g = mst.getGraph();
 
-	key = new int[N];
-	p = new int[N];
 
-	for(int i=0 ; i<N ; i++){
-		key[i] = INF;
-		p[i] = -1;
-	}
 
 	key[s] = 0;
-	for(int i=0 ; i<N ; i++)
-		pq.push(i);
 
+	for(int i=0 ; i<N ; i++){
+		int u = -1;
+		for(int v=0 ; v<N ; v++){
+			if(!added[v] && (u == -1 || key[u] > key[v]))
+				u = v;
+		}
+
+		sum += key[u];
+		added[u] = true;
+
+		for(int j=0 ; j<g[u].size() ; j++){
+			int v = g[u][j].v2;
+			int w = g[u][j].w;
+
+			if(!added[v] && key[v] > w){
+				key[v] = w;
+			}
+		}
+	}
+/*
 	while(!pq.empty()){
 		int u = pq.top();
 		pq.pop();
@@ -95,7 +107,7 @@ int prim(Graph& mst, int s){
 	}
 	std::cout << std::endl;
 //		sum += key[i];
-
+*/
 	return sum;
 }
 

@@ -21,6 +21,7 @@ int prim(int N, int s){
 
 	key = new int[N];
 	sel = new bool[N];
+	std::vector<std::pair<int, int>> path;
 
 	for(int i=0 ; i<N ; i++){
 		key[i] = INF;
@@ -42,7 +43,7 @@ int prim(int N, int s){
 
 		sel[u] = true;
 		key[u] = edge[u][v];
-
+		path.push_back(std::make_pair(u, v));
 
 		for(int i=0 ; i<N ; i++)
 			if(edge[u][i] != 0 && sel[i] == false)
@@ -51,10 +52,9 @@ int prim(int N, int s){
 
 	for(int i=0 ; i<N ; i++){
 		sum += key[i];
-		std::cout << key[i] << " ";
+		std::cout << path[i].first << " -> " << path[i].second << std::endl;
 	}
 
-	std::cout << std::endl;
 	return sum;
 }
 
