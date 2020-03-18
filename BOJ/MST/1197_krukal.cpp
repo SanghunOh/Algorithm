@@ -32,10 +32,10 @@ int kruskal(std::vector<edge> graph, int N, int M){
 	int* size;
 	long long sum = 0;
 
-	size = new int[N];
-	parent = new int[N];
+	size = new int[N+1];
+	parent = new int[N+1];
 
-	for(int i=0 ; i<N ; i++){
+	for(int i=1 ; i<=N ; i++){
 		parent[i] = i;
 		size[i] = 1;
 	}
@@ -57,7 +57,6 @@ int main(){
 	std::vector<edge> graph;
 	
 	std::cin >> N >> M;
-
 
 	for(int i=0 ; i<M ; i++){
 		int u, v, w;
