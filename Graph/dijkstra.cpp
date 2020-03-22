@@ -17,7 +17,6 @@ struct comp{
 void Dijkstra(std::vector<edge>*& graph, const int N, const int M, const int s){
 	std::vector<int> d(N, INF);
 	std::vector<int> pre(N, -1);
-	std::vector<bool> checked(N, false);
 	std::priority_queue<std::pair<int, int>> pq;
 	pq.push(std::make_pair(s, 0));
 
@@ -28,7 +27,7 @@ void Dijkstra(std::vector<edge>*& graph, const int N, const int M, const int s){
 		int distance = -pq.top().second;
 		pq.pop();
 
-		if(d[u] < distance)
+		if(d[u] < distance) // 이미 최단경로가 정해진 노드 제외
 			continue;
 		for(int i=0 ; i<graph[u].size() ; i++){
 			int v = graph[u][i].v;
