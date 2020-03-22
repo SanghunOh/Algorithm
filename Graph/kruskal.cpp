@@ -72,6 +72,8 @@ int main(){
 	int N;
 	int M;
 	std::vector<Edge> e;
+//edge의 집합이 필요함
+//전체적인 graph에 대한 자료구조는 필요한지 잘 모르겠다
 
 	std::cin >> N >> M;
 
