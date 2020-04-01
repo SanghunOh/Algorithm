@@ -9,8 +9,7 @@
 */
 
 int main(){
-	int N;
-	int A[1001];
+	int N; int A[1001];
 	int LIS[1001][1001] = {0};
 
 	std::cin >> N;
