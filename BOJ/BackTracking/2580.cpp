@@ -1,5 +1,4 @@
 #include	<iostream>
-#include	<stack>
 
 bool checkVertical(int sudo[][9], int y, int x){
 	int count = 0;
@@ -67,6 +66,7 @@ bool findSudoku(int sudo[][9], int y, int x){
 	}
 	if(sudo[y][x]){
 		findSudoku(sudo, y+(x+1)/9, (x+1)%9);
+		return true;
 	}
 
 	bool vert = checkVertical(sudo, y, x);
@@ -79,18 +79,15 @@ bool findSudoku(int sudo[][9], int y, int x){
 
 	if(checkVertical(sudo, y, x)){
 		sudo[y][x] = calFromVertical(sudo, y, x);
-		std::cout << y << " " << x << " : " << sudo[y][x] << std::endl;
-	findSudoku(sudo, y+(x+1)/9, (x+1)%9);
+		findSudoku(sudo, y+(x+1)/9, (x+1)%9);
 	}
 	else if(checkHor(sudo, y, x)){
 		sudo[y][x] = calFromHor(sudo, y, x);
-		std::cout << y << " " << x << " : " << sudo[y][x] << std::endl;
-	findSudoku(sudo, y+(x+1)/9, (x+1)%9);
+		findSudoku(sudo, y+(x+1)/9, (x+1)%9);
 	}
 	else if(checkRect(sudo, y, x)){
 		sudo[y][x] = calFromRect(sudo, y, x);
-		std::cout << y << " " << x << " : " << sudo[y][x] << std::endl;
-	findSudoku(sudo, y+(x+1)/9, (x+1)%9);
+		findSudoku(sudo, y+(x+1)/9, (x+1)%9);
 	}
 
 	return true;
@@ -98,7 +95,6 @@ bool findSudoku(int sudo[][9], int y, int x){
 
 int main(){
 	int sudoku[9][9];
-	std::stack<std::pair<int, int>> s;
 
 	for(int i=0 ; i<9 ; i++)
 		for(int j=0 ; j<9 ; j++)
