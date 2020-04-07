@@ -17,30 +17,17 @@ void findFunnyGame(int soccer[][21], int N, int count, int pre){
 			if(!check[i])
 				link[idx++] = i;
 
-		std::cout << "start : ";
+		int start_sum = 0;
+		int link_sum = 0;
 		for(int i=0 ; i<N/2 ; i++){
-			std::cout << start[i] << " ";
-		}
-		std::cout << std::endl;
-
-		std::cout << "link : ";
-		for(int i=0 ; i<N/2 ; i++){
-			std::cout << link[i] << " ";
-		}
-		std::cout << std::endl;
-
-		for(int i=0 ; i<N/2 ; i++){
-			int start_sum = 0;
-			int link_sum = 0;
-
 			for(int j=0 ; j<N/2 ; j++){
+				if(i == j)
+					continue;
 				start_sum += soccer[start[i]][start[j]];
-				start_sum += soccer[start[j]][start[i]];
 				link_sum += soccer[link[i]][link[j]];
-				link_sum += soccer[link[j]][link[i]];
 			}
-			min = std::min(min, std::abs(start_sum - link_sum));
 		}
+		min = std::min(min, std::abs(start_sum - link_sum));
 	}
 
 	for(int i=1 ; i<=N ; i++){
@@ -57,7 +44,7 @@ void findFunnyGame(int soccer[][21], int N, int count, int pre){
 
 int main(){
 	int N;
-	int soccer[21][21];
+	int soccer[21][21] = {0};
 
 	std::cin >> N;
 
