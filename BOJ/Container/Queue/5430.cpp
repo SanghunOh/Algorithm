@@ -2,7 +2,7 @@
 #include	<string>
 #include	<stack>
 #include	<deque>
-
+/*
 bool funcD(std::deque<int>& dq){
 	if(dq.empty())
 		return false;
@@ -16,7 +16,7 @@ bool funcR(std::deque<int>& dq, int N){
 
 	std::stack<int> s;
 	int size = dq.size();
-/*
+
 	for(int i=0 ; i<size ; i++)
 		s.push(dq[i]);
 	dq.clear();
@@ -25,24 +25,20 @@ bool funcR(std::deque<int>& dq, int N){
 		dq.push_back(s.top());
 		s.pop();
 	}
-*/
-
-	for(int i=0 ; i<size/2 ; i++){
-		int t = dq[i];
-		dq[i] = dq[N-1-i];
-		dq[N-1-t] = t;
-	}
 	return true;
 }
-
+*/
 int main(){
 	int T;
+	std::cin.tie(NULL);
+	std::cout.tie(NULL);
 
 	std::cin >> T;
 
 	while(T--){
 		std::string func;
 		bool flag = false;
+		bool rev = false;
 		int N;
 		std::string arr;
 		std::deque<int> dq;
@@ -56,28 +52,45 @@ int main(){
 
 		for(int i=0 ; i<func.size() ; i++){
 			if(func[i] == 'R'){
-				if(!funcR(dq, N)){
-					flag = true;
-					break;
-				}
+				rev = !rev;
 			}
 			else if(func[i] == 'D'){
-				if(!funcD(dq)){
+				if(dq.empty()){
 					flag = true;
 					break;
 				}
+				if(rev)
+					dq.pop_back();
+				else
+					dq.pop_front();
 			}
 		}
-
-		if(flag){
+		if(!N)
+			std::cout << "[]" << '\n';
+		else if(flag){
 			std::cout << "error\n";
 			continue;
 		}
-
-		std::cout << "[";
-		for(int i=0 ; i<dq.size()-1 ; i++)
-			std::cout << dq[i] << ",";
-		std::cout << dq[dq.size()-1] << "]\n";
+		else if(dq.size()){
+			std::cout << "[";
+			while(!dq.empty()){
+				if(!rev){
+					if(dq.size() == 1)
+						std::cout << dq.front();
+					else
+						std::cout << dq.front() << ",";
+					dq.pop_front();
+				}
+				else{
+					if(dq.size() == 1)
+						std::cout << dq.back();
+					else
+						std::cout << dq.back() << ",";
+					dq.pop_back();
+				}
+			}
+			std::cout << "]\n";
+		}
 	}
 
 	return 0;
